@@ -1,9 +1,10 @@
 import React from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
 import './App.css';
 
 function Note(props){
     return (
-        <li className="note" key={props.text}>
+        <li className="note">
             <div className="note-big-rune">
                 <span>{props.text[0]}</span>
             </div>
@@ -16,7 +17,9 @@ function Note(props){
                 </div>
             </div>
             <div className="note-button-wrapper">
-                <button></button>
+                <button
+                    onClick={() => props.onComplite(props.listIndex)}
+                />
             </div>
         </li>
     );
@@ -70,7 +73,15 @@ class App extends React.Component {
     }
     handleCreateNote = (text) => {
         const notes = this.state.notes.slice();
+        if (notes.indexOf(text) >= 0){
+            return;
+        }
         notes.push(text);
+        this.setState({notes: notes})
+    }
+    handleNoteComplite = (index) => {
+        const notes = this.state.notes.slice();
+        notes.splice(index, 1);
         this.setState({notes: notes})
     }
     render() {
@@ -89,7 +100,20 @@ class App extends React.Component {
                             onCreateNote = {this.handleCreateNote}/>
                         <hr />
                         <ul className="notes-list">
-                            {notes.map((text) => <Note text={text} />)}
+                            <CSSTransitionGroup
+                                transitionName="note"
+                                transitionEnterTimeout={300}
+                                transitionLeaveTimeout={300}>
+
+                                {notes.map((text, i) =>
+                                    <Note
+                                        key={text}
+                                        text={text}
+                                        listIndex={i}
+                                        onComplite={this.handleNoteComplite}
+                                    />
+                                )}
+                            </CSSTransitionGroup>
                         </ul>
                         <div className="content-to-top-wrapper">
                             <button>TO TOP</button>
