@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap&subset=cyrillic');
+
+@font-face {
+    font-family:"Rune";
+    src: url('fonts/RUNE.TTF') format('truetype');
+}
+
+$bg-color: #ffe;
+$rune-color: #775;
+
+@mixin font-family-rune{
+    font-family: "RUNE", 'Montserrat';
+    color: $rune-color;
+}
+
+@mixin font-family-primary{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal;
+}
+
+
+
+.App {
+    background-color: $bg-color;
+    & > header {
+        padding-top: 2rem;
+        height: 10rem;
+        text-align: center;
+        h1 {
+            margin-top: 0px;
+            @include font-family-primary;
+            font-weight: 500;
+        }
+        h2 {
+            @include font-family-rune;
+        }
+    }
+    & > footer {
+        @include font-family-primary;
+        height: 4rem;
+        padding: 2rem 2rem 0;
+        font-size: 20px;
+        font-weight: 500;
+        text-align: right;
+        opacity: 0.4;
+    }
+    & > .content {
+        @include font-family-primary;
+        min-height: calc(100vh - 12rem - 4rem);
+    }
+}
+
+@mixin input-style {
+    background-color: white;
+    box-shadow: none;
+    border: 1px solid black;
+    border-radius: 4px;
+    outline-color: #ff9;
+    transition: 0.2s;
+    &:hover {
+        background-color: #ffa;
+    }
+}
+
+hr {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+    &:before {
+        display: block;
+        content: "";
+        height: 30px;
+        margin-top: -31px;
+        border-style: solid;
+        border-color: black;
+        border-width: 0 0 1px 0;
+        border-radius: 20px;
+    }
+}
+
+.content {
+    hr {
+        margin: 46px 0 16px;
+        height: 30px;
+    }
+    &-inner {
+        margin: 0 auto;
+        width: 90%;
+        max-width: 768px;
+    }
+    &__new-note {
+        margin: 0 auto;
+        width: 66.66%;
+        @include font-family-primary;
+        textarea {
+            display: block;
+            min-width: 100%;
+            min-height: 6rem;
+            font-weight: 400;
+            font-size: 18px;
+            padding: 0.5rem;
+            @include input-style;
+            &:focus-within {
+                background-color: #fff;
+            }
+        }
+        button {
+            margin: 0 auto;
+            display: block;
+            margin-top: 1rem;
+            width: 6rem;
+            height: 3rem;
+            @include input-style;
+            &:active {
+                background-color: #ff2;
+            }
+        }
+    }
+    &-to-top-wrapper {
+        width: 100%;
+        text-align: center;
+        button {
+            color: #444;
+            font-size: 1rem;
+            background-color: $bg-color;
+            border: none;
+            text-decoration: none;
+            padding: 19px 1rem 13px;
+            border-top: 1px solid $bg-color;
+            border-bottom: 1px solid $bg-color;
+            border-radius: 4px;
+            transition: 0.2s;
+            outline: none;
+            &:hover {
+                color: #000;
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+                border-radius: 16px;
+                padding: 16px 1rem 16px;
+            }
+        }
+    }
+}
+
+.notes-list {
+    list-style-type: none;
+    width: 100%;
+    padding: 0;
+}
+
+.note {
+    display: flex;
+    margin-bottom: 2rem;
+    padding-left: 16px;
+
+    &-rune, &-button-wrapper {
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+    &-content {
+        flex-basis: 66.66%;
+    }
+
+    &-rune {
+        align-self: center;
+        padding:1rem 1.5rem;
+        @include font-family-rune;
+        font-size: 4rem;
+        text-align: center;
+    }
+    &-content {
+        text-align: center;
+        padding: 1rem;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        border-radius: 16px;
+
+        &__rune {
+            @include font-family-rune;
+            font-size: 2rem;
+        }
+        &__text {
+            position: relative;
+            opacity: 0;
+            font-size: 18px;
+            transition: 0.3s;
+            top:2px;
+            color: $rune-color;
+        }
+        &:hover &__text{
+            top:0px;
+            opacity: 1;
+        }
+    }
+    &-button-wrapper{
+        align-self: center;
+        padding: 1rem;
+        button {
+            transition: 0.2s;
+            width: 4rem;
+            height: 4rem;
+            background-color: $bg-color;
+            border: none;
+            border-radius: 16px;
+            position: relative;
+            outline: none;
+            border: 1px solid $bg-color;
+        }
+        button::before {
+            position:absolute;
+            content: "";
+            width: 40px;
+            height: 20px;
+            opacity: 0.5;
+            transition: 0.2s;
+            border-bottom: 3px solid $rune-color;
+            border-left: 3px solid $rune-color;
+            transform: translate(-21px, -15px) rotate(-45deg);
+        }
+        &:hover button{
+            &::before{
+                opacity: 1;
+                transform: translate(-21px, -18px) rotate(-45deg);
+            }
+            border-color: $rune-color;
+        }
+    }
+}
