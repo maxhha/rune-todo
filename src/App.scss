@@ -156,7 +156,7 @@ hr {
     margin-bottom: 2rem;
     padding-left: 16px;
 
-    &-rune, &-button-wrapper {
+    &-big-rune, &-button-wrapper {
         flex-grow: 1;
         flex-shrink: 1;
     }
@@ -164,12 +164,13 @@ hr {
         flex-basis: 66.66%;
     }
 
-    &-rune {
+    &-big-rune {
         align-self: center;
         padding:1rem 1.5rem;
         @include font-family-rune;
         font-size: 4rem;
         text-align: center;
+        width: 4rem;
     }
     &-content {
         text-align: center;
