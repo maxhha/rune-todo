@@ -63,7 +63,6 @@ $rune-color: #775;
 
 hr {
     overflow: visible;
-    /* For IE */
     height: 30px;
     border-style: solid;
     border-color: black;
@@ -80,6 +79,16 @@ hr {
         border-width: 0 0 1px 0;
         border-radius: 20px;
     }
+}
+
+.error-message {
+    width: 66.66%;
+    margin: 0 auto 1rem;
+    padding: 1rem;
+    background-color: #f44;
+    color: white;
+    font-weight: 500;
+    border-radius: 4px;
 }
 
 .content {
@@ -165,10 +174,10 @@ hr {
 .note {
     display: flex;
     margin-bottom: 2rem;
-    padding-left: 16px;
+    padding-left: 24px;
 
     &-big-rune,
-    &-button-wrapper {
+    &-complite-wrapper {
         flex-grow: 1;
         flex-shrink: 1;
     }
@@ -213,7 +222,7 @@ hr {
         }
     }
 
-    &-button-wrapper {
+    &-complite-wrapper {
         align-self: center;
         padding: 1rem;
 

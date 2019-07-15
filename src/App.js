@@ -16,7 +16,7 @@ function Note(props){
                     {props.text}
                 </div>
             </div>
-            <div className="note-button-wrapper">
+            <div className="note-complite-wrapper">
                 <button
                     onClick={() => props.onComplite(props.listIndex)}
                 />
@@ -64,8 +64,11 @@ class App extends React.Component {
             data = localStorage.getItem('notes') || "[]";
             data = JSON.parse(data);
         } catch(e) {
-            errorMessage = "Error of reading local storage. All data was cleared."
+            errorMessage =
+                "Error of reading local storage. All data was cleared.";
+            console.error(e);
         }
+        this.refToTop = React.createRef();
         this.state = {
             notes: data,
             errorMessage: errorMessage,
@@ -84,11 +87,14 @@ class App extends React.Component {
         notes.splice(index, 1);
         this.setState({notes: notes})
     }
+    handleToTop = () => {
+        this.refToTop.current.scrollIntoView({behavior: 'smooth'});
+    }
     render() {
         const notes = this.state.notes;
 
         return (
-            <div className="App">
+            <div className="App" ref={this.refToTop}>
                 <header>
                     <h1>RUNE TODO</h1>
 
@@ -96,6 +102,7 @@ class App extends React.Component {
                 </header>
                 <div className="content">
                     <div className="content-inner">
+                        {this.state.errorMessage ? (<div className="error-message">{this.state.errorMessage}</div>) : ""}
                         <NoteEditor
                             onCreateNote = {this.handleCreateNote}/>
                         <hr />
@@ -116,11 +123,14 @@ class App extends React.Component {
                             </CSSTransitionGroup>
                         </ul>
                         <div className="content-to-top-wrapper">
-                            <button>TO TOP</button>
+                            <button
+                                onClick={this.handleToTop}>TO TOP</button>
                         </div>
                     </div>
                 </div>
-                <footer>made by <a href="#">max_hha</a></footer>
+                <footer>made by
+                    <a href="https://github.com/maxhha"
+                        target="_blank">max_hha</a></footer>
             </div>
         )
     }
@@ -132,6 +142,7 @@ class App extends React.Component {
             this.setState({
                 errorMessage: "Error on save data."
             });
+            console.error(e);
         }
     }
     componentDidUpdate(prevProps, prevState){
