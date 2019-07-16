@@ -1,16 +1,18 @@
 import React from 'react';
 import { CSSTransitionGroup } from 'react-transition-group';
+import cyrillicToTranslit from 'cyrillic-to-translit-js';
 import './App.css';
 
 function Note(props){
+    const translit = cyrillicToTranslit().transform(props.text);
     return (
         <li className="note">
             <div className="note__rune">
-                <span>{props.text[0]}</span>
+                <span>{translit[0]}</span>
             </div>
             <div className="note-content note__content">
                 <div className="note-content__rune-text">
-                    {props.text}
+                    {translit}
                 </div>
                 <div className="note-content__text">
                     {props.text}
@@ -133,7 +135,8 @@ class App extends React.Component {
                     </div>
                 </div>
                 <footer className="footer">made by <a href="https://github.com/maxhha"
-                        target="_blank">max_hha</a></footer>
+                        target="_blank"
+                        rel="noopener noreferrer">max_hha</a></footer>
             </div>
         )
     }
