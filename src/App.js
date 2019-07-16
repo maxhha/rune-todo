@@ -5,19 +5,20 @@ import './App.css';
 function Note(props){
     return (
         <li className="note">
-            <div className="note-big-rune">
+            <div className="note__rune">
                 <span>{props.text[0]}</span>
             </div>
-            <div className="note-content">
-                <div className="note-content__rune">
+            <div className="note-content note__content">
+                <div className="note-content__rune-text">
                     {props.text}
                 </div>
                 <div className="note-content__text">
                     {props.text}
                 </div>
             </div>
-            <div className="note-complite-wrapper">
+            <div className="note__complite-wrapper">
                 <button
+                    className="complite-button"
                     onClick={() => props.onComplite(props.listIndex)}
                 />
             </div>
@@ -41,13 +42,15 @@ class NoteEditor extends React.Component {
     }
     render() {
         return (
-            <div className="content__new-note">
+            <div className={"note-editor " + this.props.className}>
                 <textarea
+                    className="note-editor__textarea"
                     value={this.state.value}
                     onChange = {this.handleChange}
                     placeholder="Write todo here"
                     />
                 <button
+                    className="note-editor__push"
                     onClick={this.handlePush}
                 >PUSH</button>
             </div>
@@ -76,7 +79,7 @@ class App extends React.Component {
     }
     handleCreateNote = (text) => {
         const notes = this.state.notes.slice();
-        if (notes.indexOf(text) >= 0){
+        if (!text || notes.indexOf(text) >= 0){
             return;
         }
         notes.push(text);
@@ -94,21 +97,22 @@ class App extends React.Component {
         const notes = this.state.notes;
 
         return (
-            <div className="App" ref={this.refToTop}>
-                <header>
-                    <h1>RUNE TODO</h1>
+            <div className="app" ref={this.refToTop}>
+                <header className="header">
+                    <h1 className="header__title">RUNE TODO</h1>
 
-                    <h2>rune todo</h2>
+                    <h2 className="header__runes">rune todo</h2>
                 </header>
                 <div className="content">
-                    <div className="content-inner">
+                    <div className="content__inner">
                         {this.state.errorMessage ? (<div className="error-message">{this.state.errorMessage}</div>) : ""}
                         <NoteEditor
+                            className = "content__note-editor"
                             onCreateNote = {this.handleCreateNote}/>
-                        <hr />
+                        <hr className="content__hr circled-hr"/>
                         <ul className="notes-list">
                             <CSSTransitionGroup
-                                transitionName="note"
+                                transitionName="note_animation"
                                 transitionEnterTimeout={300}
                                 transitionLeaveTimeout={300}>
 
@@ -122,14 +126,13 @@ class App extends React.Component {
                                 )}
                             </CSSTransitionGroup>
                         </ul>
-                        <div className="content-to-top-wrapper">
-                            <button
-                                onClick={this.handleToTop}>TO TOP</button>
-                        </div>
+                        <button
+                            className="to-top-button content__to-top"
+                            onClick={this.handleToTop}>TO TOP</button>
+
                     </div>
                 </div>
-                <footer>made by
-                    <a href="https://github.com/maxhha"
+                <footer className="footer">made by <a href="https://github.com/maxhha"
                         target="_blank">max_hha</a></footer>
             </div>
         )

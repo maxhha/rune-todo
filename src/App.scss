@@ -1,10 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap&subset=cyrillic');
+
 @font-face {
     font-family: "Rune";
     src: url("fonts/RUNE.TTF") format('truetype');
 }
+
 $bg-color: #ffe;
 $rune-color: #775;
+$header-height: 10rem;
+$footer-height: 4rem;
+
 @mixin font-family-rune {
     font-family: "RUNE", 'Montserrat';
     color: $rune-color;
@@ -14,41 +19,7 @@ $rune-color: #775;
     font-weight: normal;
 }
 
-.App {
-    background-color: $bg-color;
-
-    & > header {
-        padding-top: 2rem;
-        height: 10rem;
-        text-align: center;
-
-        h1 {
-            margin-top: 0;
-            @include font-family-primary;
-            font-weight: 500;
-        }
-
-        h2 {
-            @include font-family-rune;
-        }
-    }
-
-    & > footer {
-        @include font-family-primary;
-        height: 4rem;
-        padding: 2rem 2rem 0;
-        font-size: 20px;
-        font-weight: 500;
-        text-align: right;
-        opacity: 0.4;
-    }
-
-    & > .content {
-        @include font-family-primary;
-        min-height: calc(100vh - 12rem - 4rem);
-    }
-}
-@mixin input-style {
+@mixin editor-input {
     background-color: white;
     box-shadow: none;
     border: 1px solid black;
@@ -61,7 +32,39 @@ $rune-color: #775;
     }
 }
 
-hr {
+.app {
+    background-color: $bg-color;
+}
+
+.header {
+    padding-top: 2rem;
+    height: $header-height;
+    text-align: center;
+
+    &:first-child {
+        margin-top: 0;
+    }
+    .header__title {
+        @include font-family-primary;
+        font-weight: 500;
+    }
+
+    .header__runes {
+        @include font-family-rune;
+    }
+}
+
+.footer {
+    @include font-family-primary;
+    font-weight: 500;
+    height: $footer-height;
+    padding: 2rem 2rem 0;
+    font-size: 20px;
+    text-align: right;
+    opacity: 0.4;
+}
+
+.circled-hr {
     overflow: visible;
     height: 30px;
     border-style: solid;
@@ -92,75 +95,80 @@ hr {
 }
 
 .content {
-    hr {
-        margin: 46px 0 16px;
-        height: 30px;
-    }
+    @include font-family-primary;
+    min-height: calc(100vh - #{$header-height} - #{$footer-height});
 
-    &-inner {
+    &__inner {
         margin: 0 auto;
         width: 90%;
         max-width: 768px;
     }
 
-    &__new-note {
+    &__note-editor {
         margin: 0 auto;
         width: 66.66%;
-        @include font-family-primary;
-
-        textarea {
-            display: block;
-            min-width: 100%;
-            max-width: 100%;
-            min-height: 6rem;
-            font-weight: 400;
-            font-size: 18px;
-            padding: 0.5rem;
-            @include input-style;
-
-            &:focus-within {
-                background-color: #fff;
-            }
-        }
-
-        button {
-            margin: 0 auto;
-            display: block;
-            margin-top: 1rem;
-            width: 6rem;
-            height: 3rem;
-            @include input-style;
-
-            &:active {
-                background-color: #ff2;
-            }
-        }
     }
 
-    &-to-top-wrapper {
-        width: 100%;
-        text-align: center;
+    &__hr {
+        margin: 46px 0 16px;
+    }
 
-        button {
-            color: #444;
-            font-size: 1rem;
-            background-color: $bg-color;
-            border: none;
-            text-decoration: none;
-            padding: 19px 1rem 13px;
-            border-top: 1px solid $bg-color;
-            border-bottom: 1px solid $bg-color;
-            border-radius: 4px;
-            transition: 0.2s;
-            outline: none;
+    &__to-top {
+        margin: 0 auto;
+        display: block;
+    }
+}
 
-            &:hover {
-                color: #000;
-                border-top: 1px solid black;
-                border-bottom: 1px solid black;
-                border-radius: 16px;
-                padding: 16px 1rem;
-            }
+.to-top-button {
+    @include font-family-primary;
+    color: #444;
+    font-size: 1rem;
+    background-color: $bg-color;
+    border: none;
+    text-decoration: none;
+    padding: 19px 1rem 13px;
+    border-top: 1px solid $bg-color;
+    border-bottom: 1px solid $bg-color;
+    border-radius: 4px;
+    transition: 0.2s;
+    outline: none;
+
+    &:hover {
+        color: #000;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        border-radius: 16px;
+        padding: 16px 1rem;
+    }
+}
+
+.note-editor {
+    @include font-family-primary;
+
+    &__textarea {
+        @include editor-input;
+        display: block;
+        width:100%;
+        min-height: 6rem;
+        resize: vertical;
+        font-weight: 400;
+        font-size: 18px;
+        padding: 0.5rem;
+
+        &:focus-within {
+            background-color: #fff;
+        }
+    }
+    &__push {
+        @include editor-input;
+        margin: 0 auto;
+        display: block;
+        margin-top: 1rem;
+        width: 6rem;
+        height: 3rem;
+
+        &:active {
+            background-color: #ff2;
         }
     }
 }
@@ -175,105 +183,153 @@ hr {
     display: flex;
     margin-bottom: 2rem;
     padding-left: 24px;
+    max-width: 100%;
 
-    &-big-rune,
-    &-complite-wrapper {
+    &__rune,
+    &__complite-wrapper {
         flex-grow: 1;
         flex-shrink: 1;
     }
 
-    &-content {
+    &__content {
         flex-basis: 66.66%;
+        max-width: 66.66%;
     }
 
-    &-big-rune {
+    &__rune {
+        @include font-family-rune;
         align-self: center;
         padding: 1rem 1.5rem;
-        @include font-family-rune;
         font-size: 4rem;
         text-align: center;
         width: 4rem;
-    }
-
-    &-content {
-        text-align: center;
-        padding: 1rem;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
-        border-radius: 16px;
-
-        &__rune {
-            @include font-family-rune;
+        @media (max-width: 768px) {
+            padding: 1rem 1rem;
+            font-size: 3rem;
+            width: 4rem;
+        }
+        @media (max-width: 320px) {
+            padding: 1rem 0.5rem;
             font-size: 2rem;
-        }
-
-        &__text {
-            position: relative;
-            opacity: 0;
-            font-size: 18px;
-            transition: 0.3s;
-            top: 2px;
-            color: $rune-color;
-        }
-
-        &:hover &__text {
-            top: 0;
-            opacity: 1;
+            width: 2rem;
         }
     }
 
-    &-complite-wrapper {
+    &__complite-wrapper {
         align-self: center;
         padding: 1rem;
-
-        button {
-            transition: 0.2s;
-            width: 4rem;
-            height: 4rem;
-            background-color: $bg-color;
-            border: none;
-            border-radius: 16px;
-            position: relative;
-            outline: none;
-            border: 1px solid $bg-color;
-        }
-
-        button::before {
-            position: absolute;
-            content: "";
-            width: 40px;
-            height: 20px;
-            opacity: 0.5;
-            transition: 0.2s;
-            border-bottom: 3px solid $rune-color;
-            border-left: 3px solid $rune-color;
-            transform: translate(-21px, -15px) rotate(-45deg);
-        }
-
-        &:hover button {
-            &::before {
-                opacity: 1;
-                transform: translate(-21px, -18px) rotate(-45deg);
-            }
-            border-color: $rune-color;
+        @media (max-width: 320px) {
+            padding: 1rem 0.5rem;
         }
     }
 
-    &-enter {
-        opacity: 0.01;
-
-        &-active {
-            opacity: 1;
-            transition: all 300ms linear;
-        }
-    }
-
-    &-leave {
-        opacity: 1;
-        margin-top:0;
-        &-active {
+    &_animation {
+        &-enter {
             opacity: 0.01;
-            transition: all 300ms linear;
+
+            &-active {
+                opacity: 1;
+                transition: all 300ms linear;
+            }
+        }
+
+        &-leave {
+            opacity: 1;
+            margin-top:0;
+            &-active {
+                opacity: 0.01;
+                transition: all 300ms linear;
+            }
+        }
+    }
+}
+
+.note-content {
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-radius: 16px;
+
+    &__rune-text {
+        @include font-family-rune;
+        font-size: 2rem;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        @media (max-width: 768px) {
+            font-size: 1.5rem;
+        }
+        @media (max-width: 320px) {
+            font-size: 1rem;
+        }
+    }
+
+    &__text {
+        position: relative;
+        opacity: 0;
+        font-size: 18px;
+        transition: 0.3s;
+        top: 2px;
+        color: $rune-color;
+    }
+
+    &:hover &__text {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+
+.complite-button {
+    transition: 0.2s;
+    width: 4rem;
+    height: 4rem;
+    @media (max-width: 768px) {
+        width: 3rem;
+        height: 3rem;
+    }
+    @media (max-width: 320px) {
+        width: 2rem;
+        height: 2rem;
+    }
+    background-color: $bg-color;
+    border-radius: 16px;
+    position: relative;
+    outline: none;
+    border: 1px solid $bg-color;
+
+    &::before {
+        position: absolute;
+        content: "";
+        width: 40px;
+        height: 20px;
+        opacity: 0.5;
+        transition: 0.2s;
+        border-bottom: 3px solid $rune-color;
+        border-left: 3px solid $rune-color;
+        transform: translate(-21px, -15px) rotate(-45deg);
+        @media (max-width: 768px) {
+            width: 40px * 0.75;
+            height: 20px * 0.75;
+            transform: translate(-21px * 0.75, -15px * 0.75) rotate(-45deg);
+        }
+        @media (max-width: 320px) {
+            width: 40px * 0.5;
+            height: 20px * 0.5;
+            transform: translate(-21px * 0.5, -15px * 0.5) rotate(-45deg);
+        }
+    }
+    &:hover {
+        border-color: $rune-color;
+        &::before {
+            opacity: 1;
+            transform: translate(-21px, -18px) rotate(-45deg);
+            @media (max-width: 768px) {
+                transform: translate(-21px * 0.75, -18px * 0.75) rotate(-45deg);
+            }
+            @media (max-width: 320px) {
+                transform: translate(-21px * 0.5, -18px * 0.5) rotate(-45deg);
+            }
         }
     }
 }
