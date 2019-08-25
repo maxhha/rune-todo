@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.5b3021d6.chunk.css",
-    "main.js": "/static/js/main.463092cd.chunk.js",
-    "main.js.map": "/static/js/main.463092cd.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/js/2.119cd22f.chunk.js": "/static/js/2.119cd22f.chunk.js",
-    "static/js/2.119cd22f.chunk.js.map": "/static/js/2.119cd22f.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.2874653b9556716cb4c001eae470a191.js": "/precache-manifest.2874653b9556716cb4c001eae470a191.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.5b3021d6.chunk.css.map": "/static/css/main.5b3021d6.chunk.css.map",
-    "static/media/App.css": "/static/media/RUNE.e1a6338f.TTF"
+    "main.css": "/rune-todo/static/css/main.30860cdd.chunk.css",
+    "main.js": "/rune-todo/static/js/main.f89005ac.chunk.js",
+    "main.js.map": "/rune-todo/static/js/main.f89005ac.chunk.js.map",
+    "runtime~main.js": "/rune-todo/static/js/runtime~main.41ee8f99.js",
+    "runtime~main.js.map": "/rune-todo/static/js/runtime~main.41ee8f99.js.map",
+    "static/js/2.119cd22f.chunk.js": "/rune-todo/static/js/2.119cd22f.chunk.js",
+    "static/js/2.119cd22f.chunk.js.map": "/rune-todo/static/js/2.119cd22f.chunk.js.map",
+    "index.html": "/rune-todo/index.html",
+    "precache-manifest.cc72ab084ca9e8a4d9a4ef29d83eb0ea.js": "/rune-todo/precache-manifest.cc72ab084ca9e8a4d9a4ef29d83eb0ea.js",
+    "service-worker.js": "/rune-todo/service-worker.js",
+    "static/css/main.30860cdd.chunk.css.map": "/rune-todo/static/css/main.30860cdd.chunk.css.map",
+    "static/media/App.css": "/rune-todo/static/media/RUNE.e1a6338f.TTF"
   }
 }
